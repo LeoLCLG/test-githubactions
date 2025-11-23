@@ -22,9 +22,11 @@ jobs:
         DOCKER_USER_VAR: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD_VAR: ${{secrets.DOCKER_PASSWORD}}
       run: |
-        echo "Iniciando el login..."
         docker login -u $DOCKER_USER_VAR -p $DOCKER_PASSWORD_VAR
-        echo "Finalizando login"
-     
-#    - name: Build the Docker image
-#      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    
+    - name: Docker build image
+      run: |
+        docker build -t gustcl/graphql:0.0.1 .
+    - name: Docker push image
+      run: |
+        docker push gustcl/graphql:0.0.1
